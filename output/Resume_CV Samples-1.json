@@ -1,0 +1,29 @@
+{
+    "Job History": [
+        {
+            "Job Title": "Volunteer",
+            "Company": "Knights Landing One Health Center",
+            "Start Date": "10-2024",
+            "End Date": "Present"
+        },
+        {
+            "Job Title": "Shop Owner",
+            "Company": "Plants4You",
+            "Start Date": "06-2021",
+            "End Date": "Present"
+        }
+    ],
+    "Education": [],
+    "Skills": [
+        "Fluent in spoken Tagalog",
+        "Excel",
+        "PowerPoint)"
+    ],
+    "Name": "Victor Meza",
+    "Contact Info": {
+        "phone1": "(303) 555 - 6677",
+        "phone2": "",
+        "Email": "vsmeza@ucdavis.edu",
+        "address": "Davis, CA"
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "Job History": [
+        {
+            "Job Title": "Veterinary Assistant",
+            "Company": "USA Small Animal Hospital",
+            "Start Date": "07-2027",
+            "End Date": "Present"
+        },
+        {
+            "Job Title": "Student Intern",
+            "Company": "Surgical Research Facility",
+            "Start Date": "12-2025",
+            "End Date": "10-2027"
+        },
+        {
+            "Job Title": "Veterinary Assistant",
+            "Company": "Best Pals Pet Hospital",
+            "Start Date": "07-2026",
+            "End Date": "07-2027"
+        },
+        {
+            "Job Title": "Wildlife & Conservation Intern",
+            "Company": "Northwest Conservation",
+            "Start Date": "09-2026",
+            "End Date": "01-2027"
+        },
+        {
+            "Job Title": "Student Assistant",
+            "Company": "UC Davis School of Veterinary Medicine",
+            "Start Date": "01-2026",
+            "End Date": "10-2026"
+        }
+    ],
+    "Education": [
+        {
+            "School Name": "Pasadena City College",
+            "Field of Study": "Associate Degree in Biological Sciences",
+            "Qualification": "Associate Degree in Biological Sciences"
+        }
+    ],
+    "Skills": [
+        "and analyzing cytologies",
+        "vaccine administration",
+        "Proficient in animal handling",
+        "radiographs",
+        "centrifuge",
+        "Familiar with running CBCs"
+    ],
+    "Name": "Jomari Ong",
+    "Contact Info": {
+        "phone1": "(626) - 333 - 4512",
+        "phone2": "",
+        "Email": "jmmapa@ucdavis.edu",
+        "address": "Davis, CA"
+    }
+}
