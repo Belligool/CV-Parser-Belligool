@@ -7,6 +7,7 @@ import re
 from string import punctuation
 from collections import Counter
 from parcv.regex_utils import *
+from parcv.validators import *
 import math
 
 class ResumeParser:
@@ -30,18 +31,18 @@ class ResumeParser:
         return self.parsed_cv
     
     def parse_skills(self, resume_segment):
-        splitter = re.compile(r'[,;\|\•\-\:]+')
+        splitter = re.compile(r'[,;\|\•\-\:\(\)]+')
         labels = ['technical skill', 'skill', 'other']
         skills = []
         for item in resume_segment:
             if ':' in item:
                 item = item.split(':', 1)[1]
             for elem in splitter.split(item):
-                candidate_skill = elem.strip()
-                if candidate_skill and len(candidate_skill.split()) <=5:
+                candidate_skill = clean_skill(elem)
+                if is_valid_skill(candidate_skill):
                     if self.belongs_to_label(candidate_skill, 'technical skill', labels) or self.belongs_to_label(candidate_skill, 'skill', labels):
                         skills.append(candidate_skill)
-        self.parsed_cv['Skills'] = list(set(skills))
+        self.parsed_cv['Skills'] = remove_duplicates(skills)
 
     def parse_education_history(self, resume_segment):
         self.parsed_cv["Education"] = []
@@ -61,6 +62,7 @@ class ResumeParser:
             education_item['Qualification'] = qual
             education_info.append(education_item)
         self.parsed_cv["Education"] = education_info
+        
 
     def get_closest_item_to_school(self, items, right_position, idx, idx1, idx2):
         closest_left = math.inf
