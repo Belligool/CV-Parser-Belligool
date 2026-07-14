@@ -44,13 +44,13 @@ class ResumeParser:
         self.parsed_cv['Skills'] = list(set(skills))
 
     def parse_education_history(self, resume_segment):
-        self.parsed_cv["Education"] = [] 
+        self.parsed_cv["Education"] = []
         education_info = []
         idx_schools = self.find_school_names(resume_segment)
         if not idx_schools: return
         for i, (idx, school_name) in enumerate(idx_schools):
             education_item = {'School Name': school_name, 'Field of Study': '', 'Qualification': ''}
-            start_idx = idx
+            start_idx = 0 if i == 0 else idx
             end_idx = idx_schools[i+1][0] if i + 1 < len(idx_schools) else len(resume_segment)
             chunk = " , ".join(resume_segment[start_idx:end_idx])
             qa_input_major = {'question': "what is the field of study or major?", 'context': chunk}
@@ -133,25 +133,36 @@ class ResumeParser:
         return out['answer']
 
     def find_school_names(self, resume_segment):
-        # FIXED: Updated labels to match zero-shot target expectations smoothly
-        labels = ["school name", "university", "degree", "field of study", "other"]
         idx_line = []
         for idx, line in enumerate(resume_segment):
+            if SCHOOL_REGEX.search(line):
+                qa_input = {'question': "What is the name of the university or college?", 'context': line}
+                answer = self.qa_squad(qa_input)['answer']
+                if answer:
+                    idx_line.append((idx, answer))
+                else:
+                    idx_line.append((idx, line.strip()))
+                continue
             splitter = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
             answer_splitted = [i for i in splitter.split(line) if i and not i.isdigit() and i.isalpha()]
             if not answer_splitted: continue
             num_caps = sum(1 for i in answer_splitted if i[0].isupper())
             if num_caps < len(answer_splitted) // 4: continue
             qa_input = {'question': "What is the school's name?", 'context': line}
-            out = self.qa_squad(qa_input)
-            answer = out['answer']
-            res = self.zero_shot_classifier(line, labels)
-            highest = res["labels"][0]
-            if highest == "school name":
-                if answer:
+            answer = self.qa_squad(qa_input)['answer']
+            if answer and len(answer.split()) < 7:
+                labels = ["school name", "university", "degree", "field of study", "other"]
+                res = self.zero_shot_classifier(answer, labels)
+                highest = res["labels"][0]
+                if highest in ["school name", "university"]:
                     idx_line.append((idx, answer))
-
-        return idx_line
+        unique_idx_line = []
+        seen_idx = set()
+        for idx, ans in idx_line:
+            if idx not in seen_idx:
+                unique_idx_line.append((idx, ans))
+                seen_idx.add(idx)
+        return unique_idx_line
     
     def find_job_titles(self, resume_segment):
         labels = ["company", "institution", "job title", "details", "volunteer role"]

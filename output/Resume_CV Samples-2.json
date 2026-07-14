@@ -33,18 +33,23 @@
     ],
     "Education": [
         {
+            "School Name": "University of California, Davis",
+            "Field of Study": "Bachelor of Science in Animal Science",
+            "Qualification": "Bachelor of Science in Animal Science"
+        },
+        {
             "School Name": "Pasadena City College",
             "Field of Study": "Associate Degree in Biological Sciences",
             "Qualification": "Associate Degree in Biological Sciences"
         }
     ],
     "Skills": [
-        "and analyzing cytologies",
-        "vaccine administration",
-        "Proficient in animal handling",
+        "Familiar with running CBCs",
         "radiographs",
         "centrifuge",
-        "Familiar with running CBCs"
+        "vaccine administration",
+        "Proficient in animal handling",
+        "and analyzing cytologies"
     ],
     "Name": "Jomari Ong",
     "Contact Info": {

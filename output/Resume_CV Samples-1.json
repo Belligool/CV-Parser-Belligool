@@ -13,11 +13,17 @@
             "End Date": "Present"
         }
     ],
-    "Education": [],
+    "Education": [
+        {
+            "School Name": "University of California, Davis",
+            "Field of Study": "International Agriculture Development",
+            "Qualification": "Bachelor of Science in International Agriculture Development"
+        }
+    ],
     "Skills": [
-        "Fluent in spoken Tagalog",
+        "PowerPoint)",
         "Excel",
-        "PowerPoint)"
+        "Fluent in spoken Tagalog"
     ],
     "Name": "Victor Meza",
     "Contact Info": {
