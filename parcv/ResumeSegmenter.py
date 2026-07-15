@@ -13,6 +13,10 @@ class ResumeSegmenter:
         'professional objective',
         'summary',
         'summary of qualifications',
+        'profil', 
+        'tentang saya', 
+        'ringkasan', 
+        'tujuan karir',
     )
 
     work_and_employment = (
@@ -36,6 +40,11 @@ class ResumeSegmenter:
         'military experience',
         'military background',
         'research experience',
+        'pengalaman', 
+        'pengalaman kerja', 
+        'riwayat pekerjaan', 
+        'riwayat kerja', 
+        'pengalaman profesional',
     )
 
     education_and_training = (
@@ -60,6 +69,11 @@ class ResumeSegmenter:
         'college activities',
         'certifications',
         'special training',
+        'pendidikan', 
+        'riwayat pendidikan', 
+        'edukasi', 
+        'latar belakang pendidikan', 
+        'pelatihan',
     )
 
     skills_header = (
@@ -85,7 +99,12 @@ class ResumeSegmenter:
         'languages',
         'language competencies and skills',
         'programming languages',
-        'competencies'
+        'competencies',
+        'keahlian', 
+        'keterampilan', 
+        'kemampuan', 
+        'kompetensi', 
+        'kemampuan bahasa',
     )
 
     misc = (
@@ -106,7 +125,13 @@ class ResumeSegmenter:
         'volunteer work',
         'volunteer experience',
         'additional information',
-        'interests'
+        'interests',
+        'minat', 
+        'hobi', 
+        'aktivitas', 
+        'kegiatan', 
+        'informasi tambahan', 
+        'kegiatan sosial',
     )
 
     accomplishments = (
@@ -128,6 +153,12 @@ class ResumeSegmenter:
         'current research interests',
         'thesis',
         'theses',
+        'penghargaan', 
+        'prestasi', 
+        'publikasi', 
+        'proyek', 
+        'pencapaian', 
+        'sertifikasi'
     )
 
 

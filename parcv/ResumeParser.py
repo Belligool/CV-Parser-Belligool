@@ -58,8 +58,8 @@ class ResumeParser:
             major = self.qa_squad(qa_input_major)['answer']
             qa_input_qual = {'question': "what is the qualification or degree?", 'context': chunk}
             qual = self.qa_squad(qa_input_qual)['answer']
-            education_item['Field of Study'] = major
-            education_item['Qualification'] = qual
+            education_item['Field of Study'] = major.strip(" ,.;:-") if major else ""
+            education_item['Qualification'] = qual.strip(" ,.;:-") if qual else ""
             education_info.append(education_item)
         self.parsed_cv["Education"] = education_info
         
@@ -207,10 +207,10 @@ class ResumeParser:
         phone1 = phones[0] if len(phones) > 0 else ""
         phone2 = phones[1] if len(phones) > 1 else ""
         address = self.find_address(contact_info)
-        contact_info_dict["Email"] = email
+        contact_info_dict["Email"] = email.strip(" ,.;:-") if email else ""
         contact_info_dict["phone1"] = phone1
         contact_info_dict["phone2"] = phone2
-        contact_info_dict["address"] = address
+        contact_info_dict["address"] = address.strip(" ,.;:-") if address else ""
         self.parsed_cv["Name"] = name
         self.parsed_cv["Contact Info"] = contact_info_dict
 
@@ -290,7 +290,7 @@ class ResumeParser:
         job_history = []
         for ls_idx, (idx, job_title) in enumerate(idx_job_title): 
             job_info = {}
-            job_info["Job Title"] = job_title 
+            job_info["Job Title"] = job_title.strip(" ,.;:-") if job_title else ""
             # company 
             if current_and_below: line1, line2 = idx, idx+1
             else: line1, line2 = idx, idx-1 

@@ -54,7 +54,7 @@ def main():
         print(f"No PDF files found in the '{INPUT_DIR}' directory.")
         return
     print("Initializing Models...")
-    parser = parcv.Parser(pickle=True, load_pickled=False)
+    parser = parcv.Parser(pickle=False, load_pickled=False)
     print(f"Found {len(pdf_files)} CV(s) to parse.")
     print("-" * 30)
 

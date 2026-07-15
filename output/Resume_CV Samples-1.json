@@ -2,15 +2,15 @@
     "Job History": [
         {
             "Job Title": "Volunteer",
-            "Company": "Knights Landing One Health Center",
+            "Company": " Knights Landing One Health Center,",
             "Start Date": "10-2024",
             "End Date": "Present"
         },
         {
-            "Job Title": "Shop Owner",
-            "Company": "Plants4You",
-            "Start Date": "06-2021",
-            "End Date": "Present"
+            "Job Title": "inclusion of ladybugs",
+            "Company": " Microsoft",
+            "Start Date": "",
+            "End Date": ""
         }
     ],
     "Education": [
@@ -23,14 +23,14 @@
     "Skills": [
         "Intermediate proficiency in Microsoft Office",
         "Excel",
-        "PowerPoint",
-        "Fluent in spoken Tagalog"
+        "Fluent in spoken Tagalog",
+        "beginner level in written ability"
     ],
     "Name": "Victor Meza",
     "Contact Info": {
         "phone1": "(303) 555 - 6677",
         "phone2": "",
         "Email": "vsmeza@ucdavis.edu",
-        "address": "Davis, CA"
+        "address": ""
     }
 }
