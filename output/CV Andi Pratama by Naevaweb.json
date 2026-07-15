@@ -1,0 +1,55 @@
+{
+    "Job History": [
+        {
+            "Job Title": "Asisten Riset Ekonomi",
+            "Company": " PT Ipsum Research Yogyakarta",
+            "Start Date": "09-2022",
+            "End Date": "Present"
+        },
+        {
+            "Job Title": "Bagian Perencanaan Pembangunan",
+            "Company": " Bappeda Provinsi Jawa Tengah",
+            "Start Date": "07-2021",
+            "End Date": "10-2021"
+        },
+        {
+            "Job Title": "Ketua",
+            "Company": " (HIMEPA) Yogyakarta",
+            "Start Date": "02-2022",
+            "End Date": "Present"
+        },
+        {
+            "Job Title": "Anggota Tim",
+            "Company": " Komunitas Studi Ekonomi Pembangunan Yogyakarta",
+            "Start Date": "09-2020",
+            "End Date": "08-2023"
+        }
+    ],
+    "Education": [
+        {
+            "School Name": "Universitas Gadjah Mada Yogyakarta",
+            "Field of Study": "Ekonomi Regional dan Perencanaan Pembangunan",
+            "Qualification": "Sarjana Ekonomi Pembangunan"
+        }
+    ],
+    "Skills": [
+        "Analisis Ekonomi Makro dan Mikro",
+        "Perencanaan Pembangunan",
+        "Evaluasi Proyek Pembangunan",
+        "Komunikasi Efektif",
+        "Manajemen Proyek",
+        "Pemecahan Masalah",
+        "Kerja Tim",
+        "SPSS",
+        "Stata",
+        "Microsoft Office",
+        "Tableau"
+    ],
+    "Name": "Andi Pratama",
+    "Contact Info": {
+        "phone1": "+6281234567890",
+        "phone2": "",
+        "Email": "andi.pratama@example.com",
+        "address": ""
+    }
+}

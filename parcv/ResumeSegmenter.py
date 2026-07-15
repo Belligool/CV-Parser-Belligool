@@ -20,31 +20,13 @@ class ResumeSegmenter:
     )
 
     work_and_employment = (
-        'employment history',
-        'employment data',
-        'career summary',
-        'work history',
-        'work experience',
-        'experience',
-        'professional experience',
-        'professional background',
-        'professional employment',
-        'additional experience',
-        'career related experience',
-        "professional employment history",
-        'related experience',
-        'programming experience',
-        'freelance',
-        'freelance experience',
-        'army experience',
-        'military experience',
-        'military background',
-        'research experience',
-        'pengalaman', 
-        'pengalaman kerja', 
-        'riwayat pekerjaan', 
-        'riwayat kerja', 
-        'pengalaman profesional',
+        'employment history', 'employment data', 'career summary', 'work history',
+        'work experience', 'experience', 'professional experience', 'professional background',
+        'professional employment', 'additional experience', 'career related experience',
+        "professional employment history", 'related experience', 'relevant experience', 'programming experience',
+        'freelance', 'freelance experience', 'army experience', 'military experience',
+        'military background', 'research experience',
+        'pengalaman', 'pengalaman kerja', 'riwayat pekerjaan', 'riwayat kerja', 'pengalaman profesional' 
     )
 
     education_and_training = (
@@ -232,26 +214,31 @@ class ResumeSegmenter:
 
     def find_true_segment(self, dict_of_segments, segment_name):
         segment_classes = {
-            'objective': ["objective", "other"],
-            'work_and_employment':["employment history", "other"],
-            'education_and_training': ["education and universities", "other"],
-            'skills': ["skills", "other"],
-            'accomplishments': ["accomplishments", "other"],
-            'misc': ["misc", "other"],
-            'contact_info': ["contact information", "other"]
+            'objective': ["objective", "profil", "other"],
+            'work_and_employment':["employment history", "pengalaman kerja", "other"],
+            'education_and_training': ["education", "pendidikan", "other"],
+            'skills': ["skills", "keahlian", "other"],
+            'accomplishments': ["accomplishments", "prestasi", "other"],
+            'misc': ["misc", "informasi tambahan", "other"],
+            'contact_info': ["contact information", "informasi kontak", "other"]
         }
         classes = segment_classes[segment_name]
         scores = []
         segs = dict_of_segments.keys()
         for seg in segs:
             sequence = dict_of_segments[seg]
-            score = self.zero_shot_classifier(' '.join(sequence), classes)["scores"][0]
-            scores.append(score)
+            res = self.zero_shot_classifier(' '.join(sequence), classes)
+            top_label = res["labels"][0]
+            top_score = res["scores"][0]
+            if top_label == "other":
+                scores.append(0)
+            else:
+                scores.append(top_score)
         
         res = sorted(zip(dict_of_segments.keys(), scores), key=lambda x: x[1], reverse=True)
-        if len(res):
+        if len(res) and res[0][1] > 0:
             return res[0][0]
-        else: return 0 
+        else: return 0
 
     def segment(self, string_to_search):
         resume_segments = {

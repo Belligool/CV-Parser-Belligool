@@ -1,0 +1,41 @@
+{
+    "Job History": [
+        {
+            "Job Title": "Magang IT Support",
+            "Company": " PT Lorem Ipsum Teknologi Tangerang",
+            "Start Date": "07-2024",
+            "End Date": "09-2024"
+        }
+    ],
+    "Education": [
+        {
+            "School Name": "SMK Negeri 1 Tangerang",
+            "Field of Study": "Teknik Komputer dan Jaringan",
+            "Qualification": "Teknik Komputer dan Jaringan"
+        }
+    ],
+    "Skills": [
+        "Pemrograman",
+        "Python",
+        "Java",
+        "HTML/CSS",
+        "Jaringan Komputer",
+        "TCP/IP",
+        "Routing",
+        "VPN",
+        "Komunikasi Efektif",
+        "Kerja Tim",
+        "Pemecahan Masalah",
+        "Manajemen Waktu",
+        "Cisco Packet Tracer",
+        "Wireshark",
+        "Microsoft Office"
+    ],
+    "Name": "Rizki Andriansyah",
+    "Contact Info": {
+        "phone1": "+6281234567890",
+        "phone2": "",
+        "Email": "rizki.andriansyah@example.com",
+        "address": "Tangerang"
+    }
+}

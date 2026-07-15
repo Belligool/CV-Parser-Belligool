@@ -31,7 +31,7 @@ class ResumeParser:
         return self.parsed_cv
     
     def parse_skills(self, resume_segment):
-        splitter = re.compile(r'[,;\|\•\-\:\(\)]+')
+        splitter = re.compile(r'[,;\|\•\:\(\)]+')
         labels = ['technical skill', 'skill', 'other']
         skills = []
         for item in resume_segment:
@@ -129,14 +129,38 @@ class ResumeParser:
         return answer_idxs
 
     def new_find_person_name(self, contact_info):
-        context = ' , '.join(contact_info)
-        qa_input = {'question': "What is the person's name?", 'context': context}
-        out = self.qa_squad(qa_input)
-        return out['answer']
+        context = ' '.join(contact_info[:3])
+        ner_results = self.ner(context)
+        for entity in ner_results:
+            if entity.get('entity_group', '') == 'PER' or entity.get('entity', '') == 'PER':
+                name = entity['word'].title().strip(" ,.;:-")
+                if len(name) > 1:
+                    return name
+        qa_input = {'question': "What is the full name of the candidate?", 'context': context}
+        answer = self.qa_squad(qa_input)['answer']
+        if answer and len(answer.split()) == 1:
+            words = context.split()
+            clean_words = [w.strip(" ,.;:-") for w in words]
+            clean_answer = answer.strip(" ,.;:-")
+            
+            try:
+                idx = clean_words.index(clean_answer)
+                if idx + 1 < len(words) and not any(char in words[idx+1] for char in ":@|"):
+                    answer = f"{answer.strip()} {words[idx+1].strip(' ,.;:-')}"
+            except ValueError:
+                pass
+                
+        return answer.title().strip(" ,.;:-") if answer else ""
+
 
     def find_school_names(self, resume_segment):
         idx_line = []
+        # SHIELD: Block common academic filler that the AI mistakes for universities
+        exclusion_words = ['honor', 'list', 'award', 'gpa', 'project', 'team', 'club']
         for idx, line in enumerate(resume_segment):
+            line_lower = line.lower()
+            if any(word in line_lower for word in exclusion_words):
+                continue
             if SCHOOL_REGEX.search(line):
                 qa_input = {'question': "What is the name of the university or college?", 'context': line}
                 answer = self.qa_squad(qa_input)['answer']
@@ -160,22 +184,36 @@ class ResumeParser:
                     idx_line.append((idx, answer))
         unique_idx_line = []
         seen_idx = set()
+        seen_names = set()
         for idx, ans in idx_line:
-            if idx not in seen_idx:
+            ans_lower = ans.lower().strip(" ,.;:-")
+            if idx not in seen_idx and ans_lower not in seen_names:
                 unique_idx_line.append((idx, ans))
                 seen_idx.add(idx)
+                seen_names.add(ans_lower)
         return unique_idx_line
     
     def find_job_titles(self, resume_segment):
         labels = ["company", "institution", "job title", "details", "volunteer role"]
         idx_line = []
         for idx, line in enumerate(resume_segment):
+            
+            # 1. LENGTH SHIELD: Reject long bullet points (over 12 words)
+            if len(line.split()) > 12:
+                continue
+                
+            # 2. QUICK CASING SHIELD: Instantly reject completely lowercase lines
+            if line.islower():
+                continue
+
             splitter = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
-            # FIXED: Now correctly references splitter.split(line)
             answer_splitted = [i for i in splitter.split(line) if i and not i.isdigit() and i.isalpha()]
             if not answer_splitted: continue
+            # 3. STRONG CASING SHIELD: At least 50% of the words must be capitalized
+            # (This accounts for conjunctions like 'and', 'of', 'dan', 'di' being lowercase)
             num_caps = sum(1 for i in answer_splitted if i[0].isupper())
-            if num_caps < len(answer_splitted) // 4: continue
+            if num_caps <= len(answer_splitted) / 2: 
+                continue
             qa_input = {'question': "What is the job role or title?", 'context': line}
             out = self.qa_squad(qa_input)
             answer = out['answer']
@@ -372,8 +410,8 @@ class ResumeParser:
         for line in search_span:
             ner_entities = self.get_ner_in_line(line, "DATE")
             
-            if re.search(r'\b(present|current|now)\b', line, re.IGNORECASE):
-                if not any(re.search(r'\b(present|current|now)\b', e, re.IGNORECASE) for e in ner_entities):
+            if re.search(r'\b(present|current|now|sekarang|saat\s*ini)\b', line, re.IGNORECASE):
+                if not any(re.search(r'\b(present|current|now|sekarang|saat\s*ini)\b', e, re.IGNORECASE) for e in ner_entities):
                     ner_entities.append("Present")
                     
             for dt in ner_entities:
@@ -421,9 +459,9 @@ class ResumeParser:
     def has_two_dates(self, date):
         date_str = str(date).lower()
         normalized_date = re.sub(r'[\–\—]', '-', date_str)
-        if "-" in normalized_date or " to " in normalized_date:
+        if "-" in normalized_date or " to " in normalized_date or " sampai " in normalized_date or " hingga" in normalized_date:
             return True
-        if ("present" in normalized_date or "current" in normalized_date or "now" in normalized_date) and re.search(r'\d{2,4}', normalized_date):
+        if re.search(r'\b(present|current|now|sekarang|saat\s*ini)\b', normalized_date) and re.search(r'\d{2,4}', normalized_date):
             return True
         years = re.findall(r'\b(19|20)\d{2}\b', normalized_date)
         return len(years) >= 2
@@ -473,7 +511,7 @@ class ResumeParser:
 
     def clean_date(self, date): 
         date_str = str(date)
-        if re.search(r'\b(present|current|now)\b', date_str, re.IGNORECASE):
+        if re.search(r'\b(present|current|now|sekarang|saat\s*ini)\b', date_str, re.IGNORECASE):
             return "Present"
         cleaned = ''.join(i for i in date_str if i.isalnum() or i in ['-', '/', ' ', "'"])
         return cleaned.strip()
@@ -484,12 +522,18 @@ class ResumeParser:
         if "present" in date_str or "current" in date_str or "now" in date_str:
             return "Present"
         month_dict = {
-            "january": "01", "jan": "01", "february": "02", "feb": "02",
-            "march": "03", "mar": "03", "april": "04", "apr": "04",
-            "may": "05", "june": "06", "jun": "06", "july": "07", "jul": "07",
-            "august": "08", "aug": "08", "september": "09", "sep": "09", "sept": "09",
-            "october": "10", "oct": "10", "november": "11", "nov": "11",
-            "december": "12", "dec": "12"
+            "january": "01", "januari": "01", "jan": "01", 
+            "february": "02", "februari": "02", "feb": "02",
+            "march": "03", "maret": "03", "mar": "03", 
+            "april": "04", "apr": "04",
+            "may": "05", "mei": "05", 
+            "june": "06", "juni": "06", "jun": "06", 
+            "july": "07", "juli": "07", "jul": "07",
+            "august": "08", "agustus": "08", "aug": "08", "agu": "08", 
+            "september": "09", "sep": "09", "sept": "09",
+            "october": "10", "oktober": "10", "oct": "10", "okt": "10", 
+            "november": "11", "nov": "11",
+            "december": "12", "desember": "12", "dec": "12", "des": "12"
         }
         date_clean = date.replace("'", "")
         words = re.split(r'[\s\-\/\\]+', date_clean.lower())

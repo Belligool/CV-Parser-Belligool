@@ -11,9 +11,9 @@ PHONE_REGEX = re.compile(
     re.IGNORECASE
 )
 MONTHS = (
-    "Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
-    "Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|"
-    "Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?"
+    r"Jan(?:uary|uari)?|Feb(?:ruary|ruari)?|Mar(?:ch|et)?|Apr(?:il)?|May|Mei|"
+    r"Jun(?:e|i)?|Jul(?:y|i)?|Aug(?:ust)?|Agustus|Sep(?:t(?:ember)?)?|"
+    r"Oct(?:ober)?|Okt(?:ober)?|Nov(?:ember)?|Dec(?:ember)?|Des(?:ember)?"
 )
 
 MONTH_YEAR_REGEX = re.compile(
@@ -35,7 +35,7 @@ DATE_RANGE_REGEX = re.compile(
         )
     )
 
-    \s*(?:-|–|—|to)\s*
+    \s*(?:-|–|—|to|sampai|hingga)\s*
 
     (
         (?:
@@ -48,11 +48,16 @@ DATE_RANGE_REGEX = re.compile(
             Current
             |
             Now
+            |
+            Sekarang
+            |
+            Saat\s+ini
         )
     )
     ''',
     re.IGNORECASE | re.VERBOSE
 )
+
 SCHOOL_REGEX = re.compile(
     r'''
     \b(
@@ -61,7 +66,12 @@ SCHOOL_REGEX = re.compile(
         School|
         Institute|
         Academy|
-        Polytechnic
+        Polytechnic|
+        Universitas|
+        Sekolah|
+        Institut|
+        Akademi|
+        Politeknik
     )\b
     ''',
     re.IGNORECASE | re.VERBOSE
@@ -69,20 +79,8 @@ SCHOOL_REGEX = re.compile(
 DEGREE_REGEX = re.compile(
     r'''
     \b(
-        Bachelor|
-        Master|
-        Associate|
-        Doctor|
-        PhD|
-        BSc|
-        BA|
-        BS|
-        MSc|
-        MA|
-        MBA|
-        MEarthSci|
-        GCSE|
-        A\s?levels?
+        Bachelor|Master|Associate|Doctor|PhD|BSc|BA|BS|MSc|MA|MBA|MEarthSci|GCSE|A\s?levels?|
+        Sarjana|Diploma|SMA|SMK|S1|S2|S3|Magister
     )
     ''',
     re.IGNORECASE | re.VERBOSE
