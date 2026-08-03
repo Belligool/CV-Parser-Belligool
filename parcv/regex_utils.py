@@ -80,7 +80,7 @@ DEGREE_REGEX = re.compile(
     r'''
     \b(
         Bachelor|Master|Associate|Doctor|PhD|BSc|BA|BS|MSc|MA|MBA|MEarthSci|GCSE|A\s?levels?|
-        Sarjana|Diploma|SMA|SMK|S1|S2|S3|Magister
+        Sarjana|Diploma|SMA|SMK|S1|S2|S3|Magister|Doktor
     )
     ''',
     re.IGNORECASE | re.VERBOSE

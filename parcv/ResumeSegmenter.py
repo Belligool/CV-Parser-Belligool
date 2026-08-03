@@ -173,13 +173,6 @@ class ResumeSegmenter:
                     resume_indices.append(i)
                     header = [e for e in self.education_and_training if header.startswith(e)][0]
                     resume_segments['education_and_training'][header] = i
-            elif [s for s in self.skills_header if header.startswith(s)]:
-                try:
-                    resume_segments['skills'][header]
-                except:
-                    resume_indices.append(i)
-                    header = [s for s in self.skills_header if header.startswith(s)][0]
-                    resume_segments['skills'][header] = i
             elif [m for m in self.misc if header.startswith(m)]:
                 try:
                     resume_segments['misc'][header]

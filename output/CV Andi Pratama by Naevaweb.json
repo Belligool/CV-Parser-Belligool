@@ -23,6 +23,24 @@
             "Company": " Komunitas Studi Ekonomi Pembangunan Yogyakarta",
             "Start Date": "09-2020",
             "End Date": "08-2023"
+        },
+        {
+            "Job Title": "Soft Skills",
+            "Company": "Soft Skills: , Komunikasi Efektif",
+            "Start Date": "",
+            "End Date": ""
+        },
+        {
+            "Job Title": "Manajemen Proyek",
+            "Company": "Manajemen Proyek , Pemecahan Masalah",
+            "Start Date": "",
+            "End Date": ""
+        },
+        {
+            "Job Title": "Kerja Tim",
+            "Company": "Kerja Tim",
+            "Start Date": "",
+            "End Date": ""
         }
     ],
     "Education": [
@@ -31,19 +49,6 @@
             "Field of Study": "Ekonomi Regional dan Perencanaan Pembangunan",
             "Qualification": "Sarjana Ekonomi Pembangunan"
         }
-    ],
-    "Skills": [
-        "Analisis Ekonomi Makro dan Mikro",
-        "Perencanaan Pembangunan",
-        "Evaluasi Proyek Pembangunan",
-        "Komunikasi Efektif",
-        "Manajemen Proyek",
-        "Pemecahan Masalah",
-        "Kerja Tim",
-        "SPSS",
-        "Stata",
-        "Microsoft Office",
-        "Tableau"
     ],
     "Name": "Andi Pratama",
     "Contact Info": {

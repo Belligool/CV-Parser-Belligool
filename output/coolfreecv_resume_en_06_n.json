@@ -12,9 +12,13 @@
             "School Name": "Columbia University,",
             "Field of Study": "Computer Information Systems",
             "Qualification": "Bachelor of Science: Computer Information Systems"
+        },
+        {
+            "School Name": "Chinese - A1",
+            "Field of Study": "Chinese",
+            "Qualification": "Chinese"
         }
     ],
-    "Skills": [],
     "Name": "Christopher",
     "Contact Info": {
         "phone1": "+44 (0)20 7666 8555",
