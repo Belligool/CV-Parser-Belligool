@@ -297,7 +297,7 @@ class ResumeParser:
             context = context + " , " + resume_segment[line2]
         qa_input = {'question': "What is the company's name?", 'context': context}
         out = self.qa_squad(qa_input)
-        return out['answer']
+        return out['answer'].strip(" ,.;:-")
 
 
 

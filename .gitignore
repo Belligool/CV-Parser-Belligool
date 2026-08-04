@@ -1,4 +1,4 @@
 pos-multi-v0.1.pt
-input/
-output/
-parcv/__pycache__/
+input/*
+output/*
+parcv/__pycache__/*

@@ -2,7 +2,7 @@
     "Job History": [
         {
             "Job Title": "Web Developer",
-            "Company": " Luna Web Design,",
+            "Company": "Luna Web Design",
             "Start Date": "09-2015",
             "End Date": "05-2019"
         }
@@ -12,11 +12,6 @@
             "School Name": "Columbia University,",
             "Field of Study": "Computer Information Systems",
             "Qualification": "Bachelor of Science: Computer Information Systems"
-        },
-        {
-            "School Name": "Chinese - A1",
-            "Field of Study": "Chinese",
-            "Qualification": "Chinese"
         }
     ],
     "Name": "Christopher",
