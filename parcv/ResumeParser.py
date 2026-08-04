@@ -33,7 +33,7 @@ class ResumeParser:
         idx_schools = self.find_school_names(resume_segment)
         if not idx_schools: return
         for i, (idx, school_name) in enumerate(idx_schools):
-            education_item = {'School Name': school_name, 'Field of Study': '', 'Qualification': ''}
+            education_item = {'School Name': school_name.strip(" ,.;:-") if school_name else "", 'Field of Study': '', 'Qualification': ''}
             start_idx = 0 if i == 0 else idx
             end_idx = idx_schools[i+1][0] if i + 1 < len(idx_schools) else len(resume_segment)
             chunk = " , ".join(resume_segment[start_idx:end_idx])
